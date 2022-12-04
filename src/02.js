@@ -1,88 +1,82 @@
 import { readFile } from './utils/readLines.js'
 
-const input = readFile('02')
+const POINTS_FOR_WIN = 6
+const POINTS_FOR_DRAW = 3
+const POINTS_FOR_LOSE = 0
 
-const calcScore = str => {
-  let mainPoints = 0
-  let additionalPoints = 0
+const rules = {
+  // ROCK
+  A: {
+    wins: 'C',
+    loses: 'B',
+    points: 1
+  },
+  // PAPER
+  B: {
+    wins: 'A',
+    loses: 'C',
+    points: 2
+  },
+  // SCISSORS
+  C: {
+    wins: 'B',
+    loses: 'A',
+    points: 3
+  }
+}
 
-  switch (str) {
-    // lose
-    case 'A Z':
-    case 'B X':
-    case 'C Y':
-      break
-    // win
-    case 'A Y':
-    case 'B Z':
-    case 'C X':
-      mainPoints += 6
-      break
-    // draw
-    default:
-      mainPoints += 3
-      break
+const xyzToAbc = {
+  X: 'A',
+  Y: 'B',
+  Z: 'C'
+}
+
+const calcScore = (p1, p2) => {
+  let score = rules[p2].points
+
+  if (p1 === p2) {
+    score += POINTS_FOR_DRAW
+  } else if (p1 === rules[p2].wins) {
+    score += POINTS_FOR_WIN
+  } else {
+    score += POINTS_FOR_LOSE
   }
 
-  switch (str.at(-1)) {
-    case 'A':
+  return score
+}
+
+const secretStrategy = ([p1, p2]) => {
+  const movesMapped = [p1]
+
+  switch (p2) {
     case 'X':
-      additionalPoints = 1
+      // P2 needs to lose
+      movesMapped.push(rules[p1].wins)
       break
-    case 'B':
     case 'Y':
-      additionalPoints = 2
+      // P2 needs to draw
+      movesMapped.push(p1)
       break
-    case 'C':
     case 'Z':
-      additionalPoints = 3
+      // P2 needs to win
+      movesMapped.push(rules[p1].loses)
       break
-  }
-
-  return mainPoints + additionalPoints
-}
-
-const winConditions = {
-  A: 'Z', // rock beats scissors
-  B: 'X', // paper beats rock
-  C: 'Y'  // scissors beats paper
-}
-
-const loseConditions = {
-  A: 'Y', // rock loses with paper
-  B: 'Z', // paper loses with scissors
-  C: 'X'  // scissors loses with rock
-}
-
-const drawConditions = {
-  A: 'X',
-  B: 'Y',
-  C: 'Z'
-}
-
-const secretStrategy = (str) => {
-  switch (str.at(-1)) {
-    case 'X':
-      // i need to lose
-      return str.at(0) + ' ' + winConditions[str.at(0)]
-    case 'Y':
-      // i need to draw
-      return str.at(0) + ' ' + drawConditions[str.at(0)]
-    case 'Z':
-      // i need to win
-      return str.at(0) + ' ' + loseConditions[str.at(0)]
     default:
       break
   }
+
+  return movesMapped
 }
+
+const input = readFile('02').map(pair => [pair[0], pair[2]])
 
 const part1 = input
-  .map(calcScore)
-  .reduce((acc, val) => acc + val)
+  .map(([p1, p2]) => calcScore(p1, xyzToAbc[p2]))
+  .reduce((total, score) => total + score)
 
 const part2 = input
   .map(secretStrategy)
-  .map(calcScore)
-  .reduce((acc, val) => acc + val)
+  .map(([p1, p2]) => calcScore(p1, p2))
+  .reduce((total, score) => total + score)
 
 console.log({ part1, part2 })

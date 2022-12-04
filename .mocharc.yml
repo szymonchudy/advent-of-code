@@ -1,0 +1,3 @@
+recursive: true
+timeout: 5
+ui: 'tdd'

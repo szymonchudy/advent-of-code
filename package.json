@@ -1,3 +1,13 @@
 {
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "test": "mocha \"./src/**/*.spec.js\""
+  },
+  "devDependencies": {
+    "eslint": "8.29.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-mocha": "10.1.0",
+    "mocha": "10.1.0"
+  }
 }

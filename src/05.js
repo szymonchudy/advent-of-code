@@ -1,6 +1,6 @@
-import readFile from './utils/readLines.js';
+import { readLines } from './utils/readLines.js';
 
-const input = readFile('05');
+const input = readLines('05');
 
 const EMPTY_CRATE = '###';
 const COLUMNS_AMOUNT = 9;

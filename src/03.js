@@ -1,6 +1,6 @@
-import readFile from './utils/readLines.js';
+import { readLines } from './utils/readLines.js';
 
-const input = readFile('03');
+const input = readLines('03');
 
 const letters = {};
 

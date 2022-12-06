@@ -1,6 +1,6 @@
-import readFile from './utils/readLines.js';
+import { readLines } from './utils/readLines.js';
 
-const input = readFile('01', '\n\n').map((elf) => elf.split('\n').filter((e) => e));
+const input = readLines('01', '\n\n').map((elf) => elf.split('\n').filter((e) => e));
 
 const totalCalories = input
   .map((elf) => elf

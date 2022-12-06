@@ -1,6 +1,6 @@
-import readFile from './utils/readLines.js';
+import { readLines } from './utils/readLines.js';
 
-const input = readFile('04').map((e) => e.split(',').map((e) => e.split('-').map(Number)));
+const input = readLines('04').map((e) => e.split(',').map((e) => e.split('-').map(Number)));
 
 let part1 = 0;
 let part2 = 0;

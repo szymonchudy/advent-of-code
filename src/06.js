@@ -1,6 +1,6 @@
-import readLines from './utils/readLines.js';
+import { readLines } from './utils/readLines.js';
 
-const input = readLines('06')[0].trim();
+const input = readLines('06')[0];
 
 const findGroupOfUniqueCharacters = (groupsSize, str = input) => {
   for (let i = 0; i < str.length; i += 1) {

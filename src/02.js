@@ -1,4 +1,4 @@
-import readFile from './utils/readLines.js';
+import { readLines } from './utils/readLines.js';
 
 const POINTS_FOR_WIN = 6;
 const POINTS_FOR_DRAW = 3;
@@ -68,7 +68,7 @@ const secretStrategy = ([p1, p2]) => {
   return movesMapped;
 };
 
-const input = readFile('02').map((pair) => [pair[0], pair[2]]);
+const input = readLines('02').map((pair) => [pair[0], pair[2]]);
 
 const part1 = input
   .map(([p1, p2]) => calcScore(p1, xyzToAbc[p2]))
